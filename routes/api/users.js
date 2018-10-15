@@ -88,6 +88,7 @@ router.post('/login', (req, res) => {
 		bcrypt.compare(password, user.password).then((isMatch) => {
 			if (isMatch) {
 				// Login sucess return token 登陆成功，返回 token
+				// token 前端可以使用 jwt-decode 解压出 payload 数据
 				const payload = { id: user.id, name: user.name, avatar: user.avatar };
 				jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
 					res.json({
